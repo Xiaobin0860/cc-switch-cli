@@ -418,9 +418,7 @@ async fn build_request(
     let url = if claude_api_format == Some("gemini_native") {
         super::super::gemini_url::resolve_gemini_native_url(base_url, endpoint, is_full_url)
     } else if is_full_url
-        || (base_url_trimmed
-            .to_ascii_lowercase()
-            .ends_with("/chat/completions")
+        || (base_url_path_ends_with_chat_completions(base_url)
             && endpoint_path.trim_matches('/') == "chat/completions")
     {
         append_query_to_url(base_url_trimmed, endpoint_query)
@@ -715,6 +713,15 @@ fn append_query_to_url(url: &str, query: Option<&str>) -> String {
     } else {
         format!("{url}?{query}")
     }
+}
+
+/// Check whether the path component of `base_url` ends with `/chat/completions`,
+/// ignoring any query string that may be present.
+fn base_url_path_ends_with_chat_completions(base_url: &str) -> bool {
+    let path = base_url.split_once('?').map_or(base_url, |(path, _)| path);
+    path.trim_end_matches('/')
+        .to_ascii_lowercase()
+        .ends_with("/chat/completions")
 }
 
 fn append_endpoint_to_base_url(base_url: &str, endpoint: &str) -> String {
