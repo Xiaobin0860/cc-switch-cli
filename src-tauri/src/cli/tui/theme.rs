@@ -12,6 +12,7 @@ const DRACULA_YELLOW: (u8, u8, u8) = (241, 250, 140);
 const DRACULA_RED: (u8, u8, u8) = (255, 85, 85);
 const OPENCLAW_CORAL: (u8, u8, u8) = (255, 79, 64);
 const DRACULA_COMMENT: (u8, u8, u8) = (98, 114, 164);
+const DRACULA_MUTED: (u8, u8, u8) = (98, 104, 128);
 const DRACULA_SURFACE: (u8, u8, u8) = (68, 71, 90);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -32,6 +33,8 @@ pub struct Theme {
     pub comment: Color,
     /// Highlighted values (Dracula cyan #8be9fd)
     pub cyan: Color,
+    /// Very-secondary / disabled text – brighter than surface for dark-bg contrast
+    pub muted: Color,
     /// Subtle background / surface (Dracula current-line #44475a)
     pub surface: Color,
     pub no_color: bool,
@@ -200,6 +203,7 @@ pub fn theme_for(app: &AppType) -> Theme {
         dim: terminal_color(color_mode, DRACULA_COMMENT),
         comment: terminal_color(color_mode, DRACULA_COMMENT),
         cyan: terminal_color(color_mode, DRACULA_CYAN),
+        muted: terminal_color(color_mode, DRACULA_MUTED),
         surface: terminal_color(color_mode, DRACULA_SURFACE),
         no_color,
     }

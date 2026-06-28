@@ -146,7 +146,7 @@ pub(super) fn render_main(
                         texts::tui_label_mcp_servers_active()
                     ),
                     if data.skills.installed.is_empty() {
-                        Style::default().fg(theme.surface)
+                        Style::default().fg(theme.muted)
                     } else {
                         value_style
                     },
@@ -216,7 +216,7 @@ pub(super) fn render_main(
     } else if is_ok {
         Style::default().fg(theme.ok)
     } else {
-        Style::default().fg(theme.surface)
+        Style::default().fg(theme.muted)
     };
 
     let last_sync_at = webdav_status.and_then(|status| status.last_sync_at);
@@ -226,7 +226,7 @@ pub(super) fn render_main(
     let webdav_last_sync_style = if last_sync_at.is_some() {
         value_style
     } else {
-        Style::default().fg(theme.surface)
+        Style::default().fg(theme.muted)
     };
 
     let webdav_lines = vec![
@@ -315,7 +315,7 @@ pub(super) fn render_main(
             .alignment(Alignment::Center)
             .style(
                 Style::default()
-                    .fg(theme.surface)
+                    .fg(theme.muted)
                     .add_modifier(Modifier::ITALIC),
             ),
         hero_chunks[1],
@@ -347,12 +347,12 @@ fn render_proxy_activity_dashboard(
             .fg(theme.accent)
             .add_modifier(Modifier::BOLD)
     } else {
-        Style::default().fg(theme.surface)
+        Style::default().fg(theme.muted)
     };
     let title_input_style = if has_token_traffic {
         Style::default().fg(theme.cyan).add_modifier(Modifier::BOLD)
     } else {
-        Style::default().fg(theme.surface)
+        Style::default().fg(theme.muted)
     };
     let outer = Block::default()
         .borders(Borders::ALL)
@@ -516,7 +516,7 @@ fn render_logo_hero(frame: &mut Frame<'_>, area: Rect, theme: &super::theme::The
 }
 
 fn logo_hero_lines(theme: &super::theme::Theme) -> Vec<Line<'static>> {
-    let logo_style = Style::default().fg(theme.surface);
+    let logo_style = Style::default().fg(theme.muted);
     texts::tui_home_ascii_logo()
         .lines()
         .map(|s| Line::from(Span::styled(s.to_string(), logo_style)))
@@ -636,7 +636,7 @@ fn render_local_env_tool_cell(
     };
 
     let (icon, icon_style) = if app.local_env_loading {
-        ("…", Style::default().fg(theme.surface))
+        ("…", Style::default().fg(theme.muted))
     } else {
         match status {
             Some(ToolCheckStatus::Ok { .. }) => (
@@ -677,7 +677,7 @@ fn render_local_env_tool_cell(
     let detail_style = if theme.no_color {
         Style::default()
     } else {
-        Style::default().fg(theme.surface)
+        Style::default().fg(theme.muted)
     };
 
     let value_style = Style::default().fg(theme.cyan);
@@ -700,7 +700,7 @@ fn render_local_env_tool_cell(
     let lines = vec![
         Line::from(vec![
             Span::raw(" "),
-            Span::styled(">_ ", Style::default().fg(theme.surface)),
+            Span::styled(">_ ", Style::default().fg(theme.muted)),
             Span::styled(display_name.to_string(), name_style),
             Span::raw(" "),
             Span::styled(icon.to_string(), icon_style),

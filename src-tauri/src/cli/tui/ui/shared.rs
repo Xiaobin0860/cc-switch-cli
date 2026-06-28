@@ -252,7 +252,7 @@ pub(super) fn quota_compact_line(
     if state.loading && state.quota.is_none() {
         return Some(Line::from(Span::styled(
             texts::tui_quota_loading().to_string(),
-            Style::default().fg(theme.surface),
+            Style::default().fg(theme.muted),
         )));
     }
 
@@ -284,7 +284,7 @@ pub(super) fn quota_compact_line(
             }
             return Some(Line::from(Span::styled(
                 texts::tui_quota_not_available().to_string(),
-                Style::default().fg(theme.surface),
+                Style::default().fg(theme.muted),
             )));
         }
         crate::services::CredentialStatus::ParseError => {
@@ -324,7 +324,7 @@ pub(super) fn quota_compact_line(
         }
         return Some(Line::from(Span::styled(
             texts::tui_quota_not_available().to_string(),
-            Style::default().fg(theme.surface),
+            Style::default().fg(theme.muted),
         )));
     }
 
@@ -346,7 +346,7 @@ pub(super) fn quota_compact_line(
         if !spans.is_empty() {
             spans.push(Span::styled(" | ", Style::default().fg(theme.comment)));
         }
-        spans.push(Span::styled(checked, Style::default().fg(theme.surface)));
+        spans.push(Span::styled(checked, Style::default().fg(theme.muted)));
     }
     if state.loading {
         if !spans.is_empty() {
@@ -354,7 +354,7 @@ pub(super) fn quota_compact_line(
         }
         spans.push(Span::styled(
             texts::tui_quota_loading().to_string(),
-            Style::default().fg(theme.surface),
+            Style::default().fg(theme.muted),
         ));
     }
     Some(Line::from(spans))
@@ -372,7 +372,7 @@ pub(super) fn quota_detail_lines(
 
     let label_style = Style::default().fg(theme.accent);
     let value_style = Style::default().fg(theme.cyan);
-    let muted_style = Style::default().fg(theme.surface);
+    let muted_style = Style::default().fg(theme.muted);
     let state = data.quota.state_for(&row.id);
     let mut lines = Vec::new();
     lines.push(Line::raw(""));
@@ -619,7 +619,7 @@ fn script_usage_compact_line(
         }
         return Some(Line::from(Span::styled(
             texts::tui_quota_not_available().to_string(),
-            Style::default().fg(theme.surface),
+            Style::default().fg(theme.muted),
         )));
     }
 
@@ -627,11 +627,11 @@ fn script_usage_compact_line(
         spans.push(Span::styled(" | ", Style::default().fg(theme.comment)));
         spans.push(Span::styled(
             texts::tui_quota_loading().to_string(),
-            Style::default().fg(theme.surface),
+            Style::default().fg(theme.muted),
         ));
     } else if let Some(checked) = updated_at.map(quota_relative_time) {
         spans.push(Span::styled(" | ", Style::default().fg(theme.comment)));
-        spans.push(Span::styled(checked, Style::default().fg(theme.surface)));
+        spans.push(Span::styled(checked, Style::default().fg(theme.muted)));
     }
 
     Some(Line::from(spans))
@@ -666,7 +666,7 @@ fn push_script_usage_detail_lines(
                 parts.push(Span::styled(" | ", Style::default().fg(theme.comment)));
                 parts.push(Span::styled(
                     texts::tui_quota_loading().to_string(),
-                    Style::default().fg(theme.surface),
+                    Style::default().fg(theme.muted),
                 ));
             } else if let Some(checked) = updated_at.map(quota_relative_time) {
                 parts.push(Span::styled(" | ", Style::default().fg(theme.comment)));
@@ -682,7 +682,7 @@ fn push_script_usage_detail_lines(
             texts::tui_label_quota().to_string(),
             vec![Span::styled(
                 texts::tui_quota_not_available().to_string(),
-                Style::default().fg(theme.surface),
+                Style::default().fg(theme.muted),
             )],
         );
         return;
